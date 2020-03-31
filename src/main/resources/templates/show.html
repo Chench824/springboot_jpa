@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table border="1" align="center" width="50%">
+        <tr>
+            <td>ID</td>
+            <td>姓名</td>
+            <td>年龄</td>
+            <td>住址</td>
+        </tr>
+        <tr th:each="user :${pageUser}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.age}"></td>
+            <td th:text="${user.address}"></td>
+        </tr>
+        <tr>
+            <td colspan="4" align="center">
+                <span>第[[${pageUser.getNumber()+1}]]页/总共[[${pageUser.getTotalPages()}]]页</span>&nbsp;&nbsp;&nbsp;
+                <a th:href="@{showUserByPage(pageNum=0)}">首页</a>
+                <span th:if="${pageUser.getNumber()} gt 0">
+                    <a th:href="@{showUserByPage(pageNum=${pageUser.getNumber()-1})}">上一页</a>
+                </span>
+                <span th:if="${pageUser.getNumber()} lt ${pageUser.getTotalPages()-1}">
+                    <a th:href="@{showUserByPage(pageNum=${pageUser.getNumber()+1})}">下一页</a>
+                </span>
+
+                <a th:href="@{showUserByPage(pageNum=${pageUser.getTotalPages()-1})}">尾页</a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
